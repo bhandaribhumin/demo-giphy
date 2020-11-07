@@ -6,25 +6,20 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@types/bricks.js": "^1.8.1",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
-    "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
-    "@emotion/core": "10.0.35",
-    "@emotion/styled": "10.0.27",
-    "@giphy/js-analytics": "^1.8.0",
-    "@giphy/js-brand": "^2.0.1",
-    "@giphy/js-fetch-api": "^1.7.0",
-    "@giphy/js-types": "^2.1.0",
-    "@giphy/js-util": "^1.9.2",
-    "emotion-theming": "10.0.27",
-    "intersection-observer": "^0.11.0",
-    "react-use": "15.3.3",
+    "@types/react-infinite-scroller": "^1.2.1",
+    "@types/styled-components": "^5.1.4",
+    "bricks.js": "^1.8.0",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-gif-player": "^0.4.2",
+    "react-infinite-scroller": "^1.2.4",
     "react-scripts": "4.0.0",
+    "styled-components": "^5.2.1",
     "throttle-debounce": "^3.0.1",
     "typescript": "^4.0.3",
     "use-dark-mode": "^2.3.1",
@@ -53,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.56"
   }
 }

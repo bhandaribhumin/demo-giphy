@@ -4,9 +4,9 @@ import React from 'react'
 import styles from './SearchForm.module.css'
 
 type Props = {
-  onSubmit: Function,
+  onSubmit: () => void,
   placeholder: string,
-  setValue: Function,
+  setValue:  () => void,
   value: string,
 }
 
@@ -15,7 +15,9 @@ const SearchForm = ({
   placeholder,
   setValue,
   value,
-}: Props) => (
+}: Props) => { 
+  
+  return(
   <form
     data-testid="SearchFormForm"
     onSubmit={onSubmit}
@@ -32,6 +34,6 @@ const SearchForm = ({
       className={styles.input}
     />
   </form>
-)
+)}
 
 export default SearchForm

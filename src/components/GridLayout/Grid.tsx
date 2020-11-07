@@ -8,31 +8,33 @@ import { Children, useEffect, useRef } from 'react'
 import Bricks from 'bricks.js'
 
 type Props = {
-  children: React.node,
-  sizes: Array<Object>,
+  children: React.ReactNode,
+  sizes: any[],
 }
 
 const Grid = ({ children, sizes }: Props) => {
-  const container = useRef(null)
-
+  const container:null | any = useRef(null)
   useEffect(() => {
-    const bricks = Bricks({
-      container: container.current,
-      packed: 'data-packed',
-      sizes,
-      position: true,
-    })
-
-    bricks.resize(true)
-
-    if (Children.count(children) > 0) {
-      bricks.pack()
+    if(container.current != null){ 
+      const bricks = Bricks({
+        container: container.current,
+        packed: 'data-packed',
+        sizes,
+        position: true,
+      })
+  
+      bricks.resize(true)
+  
+      if (Children.count(children) > 0) {
+        bricks.pack()
+      }
     }
-  }, [children])
+    
+  }, [container])
 
   return (
-    <div ref={container} data-testid="GridContainer">
-      {children}
+    <div  ref={el => { console.log('e',el); container.current = el; }}  data-testid="GridContainer">
+      {children ? children : ''}
     </div>
   )
 }

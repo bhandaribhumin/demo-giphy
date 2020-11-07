@@ -10,6 +10,10 @@ const [search, setSearch] = useState('')
     <>
     <GiphyContainer
   onSelect={(item:any) => console.log(item)}
+  masonryConfig={[
+    { columns: 2, imageWidth: 110, gutter: 5 },
+    { mq: '700px', columns: 3, imageWidth: 110, gutter: 5 },
+  ]}
 />
         </>
   </div>

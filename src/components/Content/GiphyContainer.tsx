@@ -44,7 +44,7 @@ const imageBackgroundColor =  styled.div`
 
 `;
 export const apiKey = '1OGGn0AcMr0DHbED4oSJQ6smyX0Txp6K';
-type MasonryConfig = {
+type GridConfig = {
   mq?: string,
   columns: number,
   imageWidth: number,
@@ -52,16 +52,16 @@ type MasonryConfig = {
 }
 type IProp = {
     onSearch: Function,
-    onSelect: Function
+    onSelect: Function,
+    gridConfig: Array<GridConfig>,
 }
 
 
-const GiphyContainer = ({onSearch,onSelect}:IProp) => {
+const GiphyContainer = ({onSearch,onSelect,gridConfig}:IProp) => {
   const { query, handleInputChange, handleSubmit } = useSearchForm()
   const debouncedQuery = useDebounce(query, 500)
   const gifPerPage:number = 20;
   const rating:string = 'g';
-  const masonryConfig:MasonryConfig[]= [{ columns: 2, imageWidth: 120, gutter: 5 }];
   const messageError:string = 'Oops! Something went wrong. Please, try again.';
   const messageLoading:string = 'Loading...';
   const messageNoMatches:string =  'No matches found.';
@@ -76,10 +76,10 @@ const GiphyContainer = ({onSearch,onSelect}:IProp) => {
 
   const [{ data, loading, error, lastPage }, fetchImages] = useApi()
 
-  const masonryConfigMatchMedia = useMedia(
-    getMediaBreakpoints(masonryConfig),
-    getMasonryConfigExceptLast(masonryConfig),
-    getDefaultMasonryConfig(masonryConfig),
+  const gridConfigMatchMedia = useMedia(
+    getMediaBreakpoints(gridConfig),
+    getMasonryConfigExceptLast(gridConfig),
+    getDefaultMasonryConfig(gridConfig),
   )
 
   // Fetch Giphy Api on component mount and on search query change
@@ -94,11 +94,11 @@ const GiphyContainer = ({onSearch,onSelect}:IProp) => {
       setFirstRun(false)
     }
   }, [debouncedQuery])
-
+  console.log('GridConfig',gridConfigMatchMedia);
   return (
     <div
       className={componentWrapper}
-      style={{ width: getComponentWrapperWidth(masonryConfigMatchMedia) }}
+      style={{ width:'100%' }}
     >
       <SearchForm
         value={query}
@@ -128,8 +128,8 @@ const GiphyContainer = ({onSearch,onSelect}:IProp) => {
           hasMore={!loading && !lastPage}
           useWindow={false}
           initialLoad={false}
-          loader={<>
-            {!firstRun && (
+
+          loader={
               <div key="loading">
                 <Spinner
                   show={loading}
@@ -137,15 +137,15 @@ const GiphyContainer = ({onSearch,onSelect}:IProp) => {
                   image={assetsSpinner}
                 />
               </div>
-            )}
-            </>}
+            }
         >
           {data.length > 0 && (
-            <Grid sizes={masonryConfig}>
+            <Grid sizes={gridConfig}>
+                {console.log('data',data)}
               {data.map((item:any) => (
                 <GifItem
                   item={item}
-                  size={masonryConfigMatchMedia.imageWidth}
+                  size={gridConfigMatchMedia.imageWidth}
                   key={item.id}
                  
                   onSelect={onSelect}
@@ -161,6 +161,8 @@ const GiphyContainer = ({onSearch,onSelect}:IProp) => {
   )
 }
 GiphyContainer.defaultProps = {
-    onSearch: () => {},
+    onSearch:  () => {},
+    onSelect:  () => {},
+    masonryConfig: [{ columns: 2, imageWidth: 120, gutter: 5 }],
   }
 export default GiphyContainer

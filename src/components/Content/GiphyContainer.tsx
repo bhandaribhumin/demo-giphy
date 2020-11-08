@@ -15,45 +15,23 @@ import InfiniteScroll from 'react-infinite-scroller'
 import SearchForm from './../SearchForm/SearchForm'
 import Spinner from './../Spinner/Spinner'
 import assetsSpinner from './../../assets/spinner.svg'
-import styled from "styled-components";
+import styles from './GiphyContainer.module.css'
 import useApi from './../../hooks/useApi'
 import useDebounce from './../../hooks/useDebounce'
 import useMedia from './../../hooks/useMedia'
 import useSearchForm from './../../hooks/useSearchForm'
 
-const componentWrapper = styled.div`
-   .componentWrapper {
-    box-sizing: border-box;
-  }
-  .componentWrapper *, .componentWrapper *:before, .componentWrapper *:after {
-    box-sizing: inherit;
-  }
- 
-`;
-const listWrapper = styled.div`
-  .listWrapper {
-    overflow-y: auto;
-  }
- 
-`;
-
-const imageBackgroundColor =  styled.div`
-.listWrapper {
-  overflow-y: auto;
-}
-
-`;
 export const apiKey = '1OGGn0AcMr0DHbED4oSJQ6smyX0Txp6K';
 type GridConfig = {
   mq?: string,
   columns: number,
-  imageWidth: number,
+  imageWidth?: number,
   gutter: number,
 }
 type IProp = {
     onSearch: Function,
     onSelect: Function,
-    gridConfig: Array<GridConfig>,
+    gridConfig: Array<GridConfig>
 }
 
 
@@ -66,13 +44,13 @@ const GiphyContainer = ({onSearch,onSelect,gridConfig}:IProp) => {
   const messageLoading:string = 'Loading...';
   const messageNoMatches:string =  'No matches found.';
   const searchPlaceholder:string = 'Search for GIFs';
-
+   
 
  
   
   const apiEndpoint = query ? 'search' : 'trending'
   const apiUrl = (offset:any) =>
-    `https://api.giphy.com/v1/gifs/${apiEndpoint}?api_key=${apiKey}&limit=${gifPerPage}&rating=${rating}&offset=${offset}&q=${query}`
+    `https://api.giphy.com/v1/${type}/${apiEndpoint}?api_key=${apiKey}&limit=${gifPerPage}&rating=${rating}&offset=${offset}&q=${query}`
 
   const [{ data, loading, error, lastPage }, fetchImages] = useApi()
 
@@ -88,17 +66,16 @@ const GiphyContainer = ({onSearch,onSelect,gridConfig}:IProp) => {
   useEffect(() => {
     fetchImages(apiUrl(0))
     onSearch(query)
-
     if (isFirstRun.current) {
       isFirstRun.current = false
       setFirstRun(false)
     }
   }, [debouncedQuery])
-  console.log('GridConfig',gridConfigMatchMedia);
+  console.log('GridConfig',getComponentWrapperWidth(gridConfigMatchMedia));
   return (
     <div
-      className={componentWrapper}
-      style={{ width:'100%' }}
+      className={styles.componentWrapper}
+      style={{ width: '100%' }}
     >
       <SearchForm
         value={query}
@@ -110,7 +87,7 @@ const GiphyContainer = ({onSearch,onSelect,gridConfig}:IProp) => {
       />
 
       <div
-        className={listWrapper}
+        className={styles.listWrapper}
         style={{ height: '100vh' }}
       >
         <Alert

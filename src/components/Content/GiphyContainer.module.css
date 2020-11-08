@@ -1,0 +1,16 @@
+.componentWrapper {
+    box-sizing: border-box;
+  }
+  
+  .componentWrapper *, .componentWrapper *:before, .componentWrapper *:after {
+    box-sizing: inherit;
+  }
+  
+  .listWrapper {
+    overflow-y: auto;
+   
+  }
+  .listWrapper div{
+    /* width:100% !important;
+    height:100% !important; */
+  }

@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 <p align="center">
-  <img width="200" src="https://" alt="Giphy React">
+  <img width="200" src="https://github.com/bhandaribhumin/demo-giphy/blob/dev/giphy.gif" alt="Giphy React">
 </p>
 
 <h3 align="center">

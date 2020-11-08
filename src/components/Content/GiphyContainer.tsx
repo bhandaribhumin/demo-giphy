@@ -50,7 +50,7 @@ const GiphyContainer = ({onSearch,onSelect,gridConfig}:IProp) => {
   
   const apiEndpoint = query ? 'search' : 'trending'
   const apiUrl = (offset:any) =>
-    `https://api.giphy.com/v1/${type}/${apiEndpoint}?api_key=${apiKey}&limit=${gifPerPage}&rating=${rating}&offset=${offset}&q=${query}`
+    `https://api.giphy.com/v1/gifs/${apiEndpoint}?api_key=${apiKey}&limit=${gifPerPage}&rating=${rating}&offset=${offset}&q=${query}`
 
   const [{ data, loading, error, lastPage }, fetchImages] = useApi()
 
